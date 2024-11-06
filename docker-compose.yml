@@ -9,35 +9,32 @@ services:
     volumes:
       - ./mysql-data:/var/lib/mysql
     networks:
-      - bankapp
+      - appbridge
     healthcheck:
-      test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
+      test: ["CMD","mysqladmin","ping","-h","localhost","-uroot","-pTest@123"]
       interval: 10s
       timeout: 5s
       retries: 3
       start_period: 30s
+    restart: always
 
   mainapp:
-    build: .
-    container_name: Bankapp
+    image: snehcreate/bankrapp-v1
+    container_name: bankapp
     environment:
       - SPRING_DATASOURCE_USERNAME=root
-      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/BankDB?useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=UTC
+      - SPRING_DATASOURCE_URL=jdbc:mysql://mysql:3306/BankDB?useSSL=false&serverTimezone=UTC
       - SPRING_DATASOURCE_PASSWORD=Test@123
     ports:
       - "8080:8080"
-    depends_on:
-      mysql:
-        condition: service_healthy
     networks:
-      - bankapp
+      - appbridge
+    depends_on:
+      - mysql
     restart: always
-    healthcheck:
-      test: ["CMD-SHELL", "curl -f http://localhost:8080/actuator/health || exit 1"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-      start_period: 30s
 
 networks:
-  bankapp:
+  appbridge:
+
+volumes:
+  mysql-data:
