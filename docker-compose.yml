@@ -20,7 +20,7 @@ services:
 
   mainapp:
     container_name: bankapp
-    image: snehcreate/bankrapp-v1:latest
+    image: bank-app:latest
     environment:
       SPRING_DATASOURCE_USERNAME: root
       SPRING_DATASOURCE_URL: "jdbc:mysql://mysql:3306/BankDB?allowPublicKeyRetrieval=true&useSSL=false"
