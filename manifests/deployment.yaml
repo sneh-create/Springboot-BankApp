@@ -1,24 +1,24 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: springbootdep
+  name: test3
   labels:
-    app: springbootdep
+    app: test3
     kubernetes.azure.com/generator: devhub
   namespace: bankapp
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: springbootdep
+      app: test3
   template:
     metadata:
       labels:
-        app: springbootdep
+        app: test3
     spec:
       containers:
-        - name: springbootdep
-          image: testcontainerapp.azurecr.io/image-workflow-1735058834581:latest
+        - name: test3
+          image: testcontainerapp.azurecr.io/testimagebank:latest
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
