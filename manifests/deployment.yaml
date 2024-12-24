@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: testdeploy
+  labels:
+    app: testdeploy
+    kubernetes.azure.com/generator: devhub
+  namespace: mydev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: testdeploy
+  template:
+    metadata:
+      labels:
+        app: testdeploy
+    spec:
+      containers:
+        - name: testdeploy
+          image: bankingappclusterregistry.azurecr.io/image-workflow-1735046372675:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
